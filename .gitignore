@@ -1,19 +1,24 @@
-.encryptedKey.json
-node_modules
-.env
-coverage
-coverage.json
-typechain
+hardhat-fund-me-fcc/.encryptedKey.json
+hardhat-fund-me-fcc/node_modules
+hardhat-fund-me-fcc/.env
+hardhat-fund-me-fcc/coverage
+hardhat-fund-me-fcc/coverage.json
+hardhat-fund-me-fcc/typechain
 
 # vscode
-.vscode
+hardhat-fund-me-fcc/.vscode
 
 #Hardhat files
-cache
-artifacts
-.DS_Store
-gas-report.txt
-deployments
+hardhat-fund-me-fcc/cache
+hardhat-fund-me-fcc/artifacts
+hardhat-fund-me-fcc/.DS_Store
+hardhat-fund-me-fcc/gas-report.txt
+hardhat-fund-me-fcc/deployments
 
 # Patrick
-.notes.md
+hardhat-fund-me-fcc/.notes.md
+
+html-fund-me-fcc/.env
+html-fund-me-fcc/.encryptedKey.json
+html-fund-me-fcc/node_modules
+html-fund-me-fcc/dist

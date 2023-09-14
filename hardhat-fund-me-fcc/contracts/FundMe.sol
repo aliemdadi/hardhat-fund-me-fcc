@@ -18,13 +18,16 @@ contract FundMe {
     using PriceConverter for uint256;
 
     // State variables
-    uint256 public constant MINIMUM_USD = 50 * 10**18;
+    //uint256 public constant MINIMUM_USD = 50 * 10**18; constant
+    //uint256 public minimumUSD; // Updated minimum funding amount - new part if you want give the amount to constructor during deploying
+    uint256 public minimumUSD = 50 * 10**18; // Default value at first - variable
     address private immutable i_owner;
     address[] private s_funders;
     mapping(address => uint256) private s_addressToAmountFunded;
     AggregatorV3Interface private s_priceFeed;
 
-    // Events (we have none!)
+    // Events
+    event MinimumUSDUpdated(uint256 newMinimumUSD);
 
     // Modifiers
     modifier onlyOwner() {
@@ -43,6 +46,14 @@ contract FundMe {
     //// private
     //// view / pure
 
+    //Taking minimumUSD when deploying contract
+    // constructor(address priceFeed, uint256 _minimumUSD) {
+    //     s_priceFeed = AggregatorV3Interface(priceFeed);
+    //     i_owner = msg.sender;
+    //     minimumUSD = _minimumUSD; // Initialize the minimum funding amount  - new part
+    // }
+    
+    //default value during construction
     constructor(address priceFeed) {
         s_priceFeed = AggregatorV3Interface(priceFeed);
         i_owner = msg.sender;
@@ -51,7 +62,7 @@ contract FundMe {
     /// @notice Funds our contract based on the ETH/USD price
     function fund() public payable {
         require(
-            msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
+            msg.value.getConversionRate(s_priceFeed) >= minimumUSD,
             "You need to spend more ETH!"
         );
         // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
@@ -118,5 +129,10 @@ contract FundMe {
 
     function getPriceFeed() public view returns (AggregatorV3Interface) {
         return s_priceFeed;
+    }
+    //New function that makes the owner capable of changing the minimumUSD variable
+    function updateMinimumUSD(uint256 _newMinimumUSD) public onlyOwner {
+        minimumUSD = _newMinimumUSD;
+        emit MinimumUSDUpdated(_newMinimumUSD); // Emit the event when the minimumUSD is updated
     }
 }
