@@ -2,7 +2,7 @@ const { assert, expect } = require("chai")
 const { network, deployments, ethers } = require("hardhat")
 const {
     developmentChains,
-    getNamedAccounts,
+    // getNamedAccounts,
 } = require("../../helper-hardhat-config")
 
 !developmentChains.includes(network.name)
@@ -11,11 +11,12 @@ const {
           let fundMe
           let mockV3Aggregator
           let deployer
-          const sendValue = ethers.utils.parseEther("1")
+          const sendValue = ethers.parseEther("1")
           beforeEach(async () => {
               // const accounts = await ethers.getSigners()
               // deployer = accounts[0]
               deployer = (await getNamedAccounts()).deployer
+              //   const { deployer } = await getNamedAccounts()
               await deployments.fixture(["all"])
               fundMe = await ethers.getContract("FundMe", deployer)
               mockV3Aggregator = await ethers.getContract(
@@ -54,7 +55,7 @@ const {
               })
               it("Allows multiple funders and updates balances", async () => {
                   const accounts = await ethers.getSigners()
-                  const sendValueHalf = ethers.utils.parseEther("0.5")
+                  const sendValueHalf = ethers.parseEther("0.5")
 
                   await fundMe.fund({ value: sendValue })
                   await fundMe
@@ -181,7 +182,7 @@ const {
           describe("updateMinimumUSD", function () {
               it("allows the owner to update the minimumUSD value", async () => {
                   // Arrange
-                  const newMinimumUSD = ethers.utils.parseEther("0.7") // Set a new minimumUSD value
+                  const newMinimumUSD = ethers.parseEther("0.7") // Set a new minimumUSD value
 
                   // Act
                   await fundMe.updateMinimumUSD(newMinimumUSD)
@@ -196,7 +197,7 @@ const {
 
               it("reverts when a non-owner tries to update the minimumUSD value", async () => {
                   // Arrange
-                  const newMinimumUSD = ethers.utils.parseEther("2") // Set a new minimumUSD value
+                  const newMinimumUSD = ethers.parseEther("2") // Set a new minimumUSD value
                   const accounts = await ethers.getSigners()
                   const nonOwner = accounts[1]
 

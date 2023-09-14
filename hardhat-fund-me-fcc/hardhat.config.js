@@ -14,7 +14,7 @@ require("hardhat-deploy")
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL || ""
 const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
 
-// const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
 console.log(PRIVATE_KEY)
 
 module.exports = {
@@ -41,10 +41,10 @@ module.exports = {
             },
         ],
     },
-    // etherscan: {
-    //     apiKey: ETHERSCAN_API_KEY,
-    //     // customChains: [], // uncomment this line if you are getting a TypeError: customChains is not iterable
-    // },
+    etherscan: {
+        apiKey: ETHERSCAN_API_KEY,
+        // customChains: [], // uncomment this line if you are getting a TypeError: customChains is not iterable
+    },
     gasReporter: {
         enabled: true,
         currency: "USD",
